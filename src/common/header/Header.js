@@ -43,12 +43,21 @@ class Header extends Component {
             modalIsopen: false,
             value: 0,
             username: '',
-            usernameRequired: 'dispNone'
+            password: '',
+            usernameRequired: 'dispNone',
+            passwordRequired: 'dispNone'
         };
     }
 
     openModelHandler = () => {
-        this.setState({ modalIsopen: true, value: 0, username: '', usernameRequired: 'dispNone' })
+        this.setState({
+            modalIsopen: true,
+            value: 0,
+            username: '',
+            password: '',
+            usernameRequired: 'dispNone',
+            passwordRequired: 'dispNone'
+        })
     }
 
     closeModalHandler = () => {
@@ -60,11 +69,16 @@ class Header extends Component {
     }
 
     loginClickHandler = () => {
-        this.state.username === "" ? this.setState({ usernameRequired: 'dispBlock' }) : this.setState({ usernameRequired: 'dispNone' })
+        this.state.username === "" ? this.setState({ usernameRequired: 'dispBlock' }) : this.setState({ usernameRequired: 'dispNone' });
+        this.state.password === "" ? this.setState({ passwordRequired: 'dispBlock' }) : this.setState({ passwordRequired: 'dispNone' })
     }
 
     inputUsernameChangeHandler = (event) => {
         this.setState({ username: event.target.value })
+    }
+
+    inputPasswordChangeHandler = (event) => {
+        this.setState({ password: event.target.value })
     }
 
     render() {
@@ -86,7 +100,8 @@ class Header extends Component {
                         <TabContainer>
                             <FormControl required>
                                 <InputLabel htmlFor="userName">Username </InputLabel>
-                                <Input id="userName" type="text" username={this.state.username} onChange={this.inputUsernameChangeHandler} />
+                                <Input id="userName" type="text" username={this.state.username}
+                                    onChange={this.inputUsernameChangeHandler} />
                                 <FormHelperText className={this.state.usernameRequired}>
                                     <span className="red">required</span>
                                 </FormHelperText>
@@ -94,7 +109,11 @@ class Header extends Component {
                             <br /><br />
                             <FormControl required>
                                 <InputLabel htmlFor="password">Password </InputLabel>
-                                <Input id="password" type="password" />
+                                <Input id="password" type="password" password={this.state.password}
+                                    onChange={this.inputPasswordChangeHandler} />
+                                <FormHelperText className={this.state.passwordRequired}>
+                                    <span className="red">required</span>
+                                </FormHelperText>
                             </FormControl>
                             <br /><br />
                             <Button variant="contained" color="primary" onClick={this.loginClickHandler}>LOGIN</Button>
