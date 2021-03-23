@@ -48,7 +48,7 @@ class Header extends Component {
     }
 
     openModelHandler = () => {
-        this.setState({ modalIsopen: true })
+        this.setState({ modalIsopen: true, value: 0, username: '', usernameRequired: 'dispNone' })
     }
 
     closeModalHandler = () => {
@@ -60,11 +60,11 @@ class Header extends Component {
     }
 
     loginClickHandler = () => {
-        this.state.username === "" ? this.setState({usernameRequired: 'dispBlock'}) : this.setState({usernameRequired: 'dispNone'})
+        this.state.username === "" ? this.setState({ usernameRequired: 'dispBlock' }) : this.setState({ usernameRequired: 'dispNone' })
     }
 
     inputUsernameChangeHandler = (event) => {
-        this.setState({username: event.target.value})
+        this.setState({ username: event.target.value })
     }
 
     render() {
