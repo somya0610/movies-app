@@ -78,6 +78,11 @@ class Details extends Component {
         this.setState({ starIcons: startIconList });
     }
 
+    // _onReady(event) {
+    //     // access to player in all event handlers via event.target
+    //     event.target.pauseVideo();
+    // }
+
     render() {
         let movie = this.state.movie;
         const opts = {
