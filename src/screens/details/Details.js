@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import Header from '../../common/header/Header';
 import './Details.css';
 import moviesData from '../../common/movieData';
 import Typography from '@material-ui/core/Typography';
+import Home from '../home/Home';
+import YouTube from 'react-youtube';
 
 class Details extends Component {
 
@@ -22,11 +25,27 @@ class Details extends Component {
         console.log(this.state);
     }
 
+    backToHomeHandler = () => {
+        ReactDOM.render(<Home />, document.getElementById('root'));
+    }
+
     render() {
         let movie = this.state.movie;
+        const opts = {
+            height: '300',
+            width: '700',
+            playerVars: {
+                autoplay: 1
+            }
+        }
         return (
             <div className="details">
                 <Header />
+                <div className="back">
+                    <Typography onClick={this.backToHomeHandler}>
+                        &#60; Back To Home
+                    </Typography>
+                </div>
                 <div className="flex-containerDetails">
                     <div className="leftDetails">
                         <img src={movie.poster_url} alt={movie.title} />
@@ -59,6 +78,12 @@ class Details extends Component {
                             <Typography>
                                 <span className="bold">Plot:</span> <a href={movie.wiki_url}>(Wiki Link)</a> {movie.storyline}
                             </Typography>
+                        </div>
+                        <div className="trailerContainer">
+                            <Typography><span className="bold">Trailer: </span></Typography>
+                            <YouTube videoId={movie.trailer_url.split("?v=")[1]}
+                            opts={opts}
+                            onReady={this._onReady}></YouTube>
                         </div>
                     </div>
                     <div className="rightDetails">
