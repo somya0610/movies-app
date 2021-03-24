@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import Header from '../../common/header/Header';
 import Home from '../home/Home';
+import Confirmation from '../confirmation/Confirmation';
 import './BookShow.css';
 import language from '../../common/language';
 import location from '../../common/location';
@@ -68,6 +69,8 @@ class BookShow extends Component {
         this.state.showDate === "" ? this.setState({ showDateRequired: 'dispBlock' }) : this.setState({ showDateRequired: 'dispNone' });
         this.state.showTime === "" ? this.setState({ showTimeRequired: 'dispBlock' }) : this.setState({ showTimeRequired: 'dispNone' });
         this.state.tickets === 0 ? this.setState({ ticketsRequired: 'dispBlock' }) : this.setState({ ticketsRequired: 'dispNone' });
+
+        ReactDOM.render(<Confirmation bookingSummary={this.state} />, document.getElementById('root'));
     }
 
     render() {
@@ -83,7 +86,7 @@ class BookShow extends Component {
                 </div>
                 <Card className="cardStyle">
                     <CardContent>
-                        <Typography variant="heading" component="h2">BOOK SHOW</Typography>
+                        <Typography variant="h5">BOOK SHOW</Typography>
                         <br />
                         <FormControl required className="formControl">
                             <InputLabel htmlFor="location">Choose Location: </InputLabel>
