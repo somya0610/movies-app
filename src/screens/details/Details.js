@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
+//import ReactDOM from 'react-dom';
 import YouTube from 'react-youtube';
 import Header from '../../common/header/Header';
-import Home from '../home/Home';
+//import Home from '../home/Home';
 import moviesData from '../../common/movieData';
 import './Details.css';
 import Typography from '@material-ui/core/Typography';
@@ -10,6 +10,7 @@ import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
+import { Link } from 'react-router-dom';
 
 class Details extends Component {
 
@@ -50,15 +51,16 @@ class Details extends Component {
     componentWillMount() {
         let currState = this.state;
         currState.movie = moviesData.filter(mov => {
-            return mov.id === this.props.movieId
+            //return mov.id === this.props.movieId
+            return mov.id === this.props.match.params.id
         })[0];
         this.setState({ currState });
-        console.log(this.state);
+        //console.log(this.state);
     }
 
-    backToHomeHandler = () => {
-        ReactDOM.render(<Home />, document.getElementById('root'));
-    }
+    // backToHomeHandler = () => {
+    //     ReactDOM.render(<Home />, document.getElementById('root'));
+    // }
 
     artistClickHandler = (url) => {
         window.location = url;
@@ -94,10 +96,13 @@ class Details extends Component {
         }
         return (
             <div className="details">
-                <Header showBookShowButton="true" />
+                <Header id={this.props.match.params.id} showBookShowButton="true" />
                 <div className="back">
-                    <Typography onClick={this.backToHomeHandler}>
+                    {/* <Typography onClick={this.backToHomeHandler}>
                         &#60; Back To Home
+                    </Typography> */}
+                    <Typography>
+                        <Link to="/">  &#60; Back to Home</Link>
                     </Typography>
                 </div>
                 <div className="flex-containerDetails">
@@ -106,7 +111,7 @@ class Details extends Component {
                     </div>
                     <div className="middleDetails">
                         <div>
-                            <Typography variant="headline" component="h2">{movie.title}</Typography>
+                            <Typography variant="h5">{movie.title}</Typography>
                         </div><br />
                         <div>
                             <Typography>
