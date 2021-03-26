@@ -181,14 +181,31 @@ class Header extends Component {
     //     ReactDom.render(<BookShow />, document.getElementById('root'));
     // }
 
+    logoutHandler = (e) => {
+
+    }
+
     render() {
         return (
             <div>
                 <header className="app-header">
                     <img src={logo} className="app-logo" alt="Movies App Logo"></img>
-                    <div className="login-button">
+                    {/* <div className="login-button">
                         <Button variant="contained" color="default" onClick={this.openModelHandler}>Login</Button>
-                    </div>
+                    </div> */}
+                    {!this.state.loggedIn ?
+                        <div className="login-button">
+                            <Button variant="contained" color="default" onClick={this.openModalHandler}>
+                                Login
+                            </Button>
+                        </div>
+                        :
+                        <div className="login-button">
+                            <Button variant="contained" color="default" onClick={this.logoutHandler}>
+                                Logout
+                            </Button>
+                        </div>
+                    }
                     {this.props.showBookShowButton === "true" ?
                         <div className="bookshow-button">
                             {/* <Button variant="contained" color="primary" onClick={this.bookshowHandler}>Book Show</Button> */}
