@@ -65,7 +65,8 @@ class Home extends Component {
             releasedMovies: [],
             genres: [],
             artists: [],
-            genresList: []
+            genresList: [],
+            artistsList: []
         }
     }
 
@@ -130,6 +131,21 @@ class Home extends Component {
         xhrGenres.open("GET", this.props.baseUrl + "genres");
         xhrGenres.setRequestHeader("Cache-Control", "no-cache");
         xhrGenres.send(dataGenres);
+
+        // Get artists
+        let dataArtists = null;
+        let xhrArtists = new XMLHttpRequest();
+        xhrArtists.addEventListener("readystatechange", function () {
+            if (this.readyState === 4) {
+                that.setState({
+                    artistsList: JSON.parse(this.responseText).artists
+                });
+            }
+        });
+
+        xhrArtists.open("GET", this.props.baseUrl + "artists");
+        xhrArtists.setRequestHeader("Cache-Control", "no-cache");
+        xhrArtists.send(dataArtists);
     }
 
     render() {
@@ -207,7 +223,8 @@ class Home extends Component {
                                         value={this.state.artists}
                                         onChange={this.artistSelectHandler}>
                                         <MenuItem value="0">None</MenuItem>
-                                        {artists.map(artist => (
+                                        {/* {artists.map(artist => ( */}
+                                        {this.state.artistsList.map(artist => (
                                             <MenuItem key={artist.id} value={artist.first_name + " " + artist.last_name}>
                                                 <Checkbox checked={this.state.artists.indexOf(artist.first_name + " " + artist.last_name) > -1} />
                                                 <ListItemText primary={artist.first_name + " " + artist.last_name} />
