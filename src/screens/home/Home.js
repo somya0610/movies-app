@@ -61,7 +61,8 @@ class Home extends Component {
         super();
         this.state = {
             movieName: '',
-            upcomingMovies: [{}],
+            upcomingMovies: [],
+            releasedMovies: [],
             genres: [],
             artists: []
         }
@@ -85,6 +86,7 @@ class Home extends Component {
     }
 
     componentWillMount() {
+        //Upcoming movies
         let data = null;
         let xhr = new XMLHttpRequest();
         let that = this;
@@ -97,6 +99,21 @@ class Home extends Component {
         xhr.open("GET", this.props.baseUrl+"movies?status=PUBLISHED");
         xhr.setRequestHeader("Cache-Control", "no-cache");
         xhr.send(data);
+
+        //Released movies
+        let dataReleased = null;
+        let xhrReleased = new XMLHttpRequest();
+        xhrReleased.addEventListener("readystatechange", function () {
+            if (this.readyState === 4) {
+                that.setState({
+                    releasedMovies: JSON.parse(this.responseText).movies
+                });
+            }
+        });
+
+        xhrReleased.open("GET", this.props.baseUrl + "movies?status=RELEASED");
+        xhrReleased.setRequestHeader("Cache-Control", "no-cache");
+        xhrReleased.send(dataReleased);
     }
 
     render() {
@@ -119,7 +136,8 @@ class Home extends Component {
                 <div className="flex-container">
                     <div className="left">
                         <GridList cols={4} cellHeight={350} className={classes.gridListMain}>
-                            {moviesData.map(movie => (
+                            {/* {moviesData.map(movie => ( */}
+                            {this.state.releasedMovies.map(movie => (
                                 <GridListTile onClick={() => this.movieClickHandler(movie.id)} className="released-movie-grid-item" key={"grid" + movie.id}>
                                     <img src={movie.poster_url} className="movie-poster" alt={movie.title} />
                                     <GridListTileBar
