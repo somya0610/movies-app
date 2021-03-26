@@ -14,10 +14,13 @@ import { Link } from 'react-router-dom';
 
 class Details extends Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
-            movie: {},
+            movie: moviesData.filter(mov => {
+                //return mov.id === this.props.movieId
+                return mov.id === props.match.params.id
+            })[0],
             starIcons: [
                 {
                     id: 1,
@@ -48,15 +51,15 @@ class Details extends Component {
         }
     }
 
-    componentWillMount() {
-        let currState = this.state;
-        currState.movie = moviesData.filter(mov => {
-            //return mov.id === this.props.movieId
-            return mov.id === this.props.match.params.id
-        })[0];
-        this.setState({ currState });
-        //console.log(this.state);
-    }
+    // componentWillMount() {
+    //     let currState = this.state;
+    //     currState.movie = moviesData.filter(mov => {
+    //         //return mov.id === this.props.movieId
+    //         return mov.id === this.props.match.params.id
+    //     })[0];
+    //     this.setState({ currState });
+    //     //console.log(this.state);
+    // }
 
     // backToHomeHandler = () => {
     //     ReactDOM.render(<Home />, document.getElementById('root'));
