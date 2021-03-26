@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import YouTube from 'react-youtube';
 import Header from '../../common/header/Header';
 //import Home from '../home/Home';
-//import moviesData from '../../common/movieData';
+import moviesData from '../../common/movieData';
 import './Details.css';
 import Typography from '@material-ui/core/Typography';
 import GridList from '@material-ui/core/GridList';
@@ -17,10 +17,11 @@ class Details extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            movie: moviesData.filter(mov => {
-                //return mov.id === this.props.movieId
-                return mov.id === props.match.params.id
-            })[0],
+            movie: {},
+            // movie: moviesData.filter(mov => {
+            //     //return mov.id === this.props.movieId
+            //     return mov.id === props.match.params.id
+            // })[0],
             starIcons: [
                 {
                     id: 1,
@@ -51,15 +52,15 @@ class Details extends Component {
         }
     }
 
-    // componentWillMount() {
-    //     let currState = this.state;
-    //     currState.movie = moviesData.filter(mov => {
-    //         //return mov.id === this.props.movieId
-    //         return mov.id === this.props.match.params.id
-    //     })[0];
-    //     this.setState({ currState });
-    //     //console.log(this.state);
-    // }
+    componentWillMount() {
+        let currState = this.state;
+        currState.movie = moviesData.filter(mov => {
+            //return mov.id === this.props.movieId
+            return mov.id === this.props.match.params.id
+        })[0];
+        this.setState({ currState });
+        //console.log(this.state);
+    }
 
     // backToHomeHandler = () => {
     //     ReactDOM.render(<Home />, document.getElementById('root'));

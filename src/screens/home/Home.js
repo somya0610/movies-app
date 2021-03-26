@@ -5,7 +5,7 @@ import './Home.css';
 import Header from '../../common/header/Header';
 import { withStyles } from '@material-ui/core/styles';
 import moviesData from '../../common/movieData';
-import genres from '../../common/genres';
+//import genres from '../../common/genres';
 import artists from '../../common/artists';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
@@ -64,7 +64,8 @@ class Home extends Component {
             upcomingMovies: [],
             releasedMovies: [],
             genres: [],
-            artists: []
+            artists: [],
+            genresList: []
         }
     }
 
@@ -114,6 +115,21 @@ class Home extends Component {
         xhrReleased.open("GET", this.props.baseUrl + "movies?status=RELEASED");
         xhrReleased.setRequestHeader("Cache-Control", "no-cache");
         xhrReleased.send(dataReleased);
+
+        // Get filters
+        let dataGenres = null;
+        let xhrGenres = new XMLHttpRequest();
+        xhrGenres.addEventListener("readystatechange", function () {
+            if (this.readyState === 4) {
+                that.setState({
+                    genresList: JSON.parse(this.responseText).genres
+                });
+            }
+        });
+
+        xhrGenres.open("GET", this.props.baseUrl + "genres");
+        xhrGenres.setRequestHeader("Cache-Control", "no-cache");
+        xhrGenres.send(dataGenres);
     }
 
     render() {
@@ -168,10 +184,16 @@ class Home extends Component {
                                         value={this.state.genres}
                                         onChange={this.genreSelectHandler}>
                                         <MenuItem value="0">None</MenuItem>
-                                        {genres.map(genre => (
+                                        {/* {genres.map(genre => (
                                             <MenuItem key={genre.id} value={genre.name}>
                                                 <Checkbox checked={this.state.genres.indexOf(genre.name) > -1} />
                                                 <ListItemText primary={genre.name} />
+                                            </MenuItem>
+                                        ))} */}
+                                        {this.state.genresList.map(genre => (
+                                            <MenuItem key={genre.id} value={genre.genre}>
+                                                <Checkbox checked={this.state.genres.indexOf(genre.genre) > -1} />
+                                                <ListItemText primary={genre.genre} />
                                             </MenuItem>
                                         ))}
                                     </Select>
