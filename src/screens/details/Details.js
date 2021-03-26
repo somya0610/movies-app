@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import YouTube from 'react-youtube';
 import Header from '../../common/header/Header';
 //import Home from '../home/Home';
-import moviesData from '../../common/movieData';
+//import moviesData from '../../common/movieData';
 import './Details.css';
 import Typography from '@material-ui/core/Typography';
 import GridList from '@material-ui/core/GridList';
@@ -99,7 +99,7 @@ class Details extends Component {
         }
         return (
             <div className="details">
-                <Header id={this.props.match.params.id} showBookShowButton="true" />
+                <Header id={this.props.match.params.id} baseUrl={this.props.baseUrl} showBookShowButton="true" />
                 <div className="back">
                     {/* <Typography onClick={this.backToHomeHandler}>
                         &#60; Back To Home
