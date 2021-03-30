@@ -156,6 +156,9 @@ class Home extends Component {
         if (this.state.genres.length > 0) {
             queryString += "&genres=" + this.state.genres.toString();
         }
+        if (this.state.artists.length > 0) {
+            queryString += "&artists=" + this.state.artists.toString();
+        }
     }
 
     render() {
