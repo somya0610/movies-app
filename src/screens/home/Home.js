@@ -6,7 +6,7 @@ import Header from '../../common/header/Header';
 import { withStyles } from '@material-ui/core/styles';
 import moviesData from '../../common/movieData';
 //import genres from '../../common/genres';
-import artists from '../../common/artists';
+//import artists from '../../common/artists';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
@@ -148,6 +148,16 @@ class Home extends Component {
         xhrArtists.send(dataArtists);
     }
 
+    filterApplyHandler = () => {
+        let queryString = "?status=RELEASED";
+        if (this.state.movieName !== "") {
+            queryString += "&title=" + this.state.movieName;
+        }
+        if (this.state.genres.length > 0) {
+            queryString += "&genres=" + this.state.genres.toString();
+        }
+    }
+
     render() {
         const { classes } = this.props;
         return (
@@ -249,7 +259,7 @@ class Home extends Component {
                                         InputLabelProps={{ shrink: true }} />
                                 </FormControl>
                                 <FormControl className={classes.formControl}>
-                                    <Button variant="contained" color="primary">APPLY</Button>
+                                    <Button onClick={() => this.filterApplyHandler()} variant="contained" color="primary">APPLY</Button>
                                 </FormControl>
                             </CardContent>
                         </Card>
