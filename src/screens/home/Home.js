@@ -175,6 +175,7 @@ class Home extends Component {
         if (this.state.releaseDateEnd !== "") {
             queryString += "&end_date=" + this.state.releaseDateEnd;
         }
+        console.log(queryString);
 
         let that = this;
         let dataFilter = null;

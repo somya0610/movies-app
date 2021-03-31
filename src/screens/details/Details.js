@@ -17,11 +17,16 @@ class Details extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            movie: {},
+            // movie: {},
             // movie: moviesData.filter(mov => {
             //     //return mov.id === this.props.movieId
             //     return mov.id === props.match.params.id
             // })[0],
+            movie: {
+                genres: [],
+                trailer_url: "",
+                artists: []
+            },
             starIcons: [
                 {
                     id: 1,
@@ -53,13 +58,27 @@ class Details extends Component {
     }
 
     componentWillMount() {
-        let currState = this.state;
-        currState.movie = moviesData.filter(mov => {
-            //return mov.id === this.props.movieId
-            return mov.id === this.props.match.params.id
-        })[0];
-        this.setState({ currState });
+        // let currState = this.state;
+        // currState.movie = moviesData.filter(mov => {
+        //     //return mov.id === this.props.movieId
+        //     return mov.id === this.props.match.params.id
+        // })[0];
+        // this.setState({ currState });
         //console.log(this.state);
+
+        let that = this;
+        let dataMovie = null;
+        let xhrMovie = new XMLHttpRequest();
+        xhrMovie.addEventListener("readystatechange", function () {
+            if (this.readyState === 4) {
+                that.setState({
+                    movie: JSON.parse(this.responseText)
+                });
+            }
+        });
+        xhrMovie.open("GET", this.props.baseUrl + "movies/" + this.props.match.params.id);
+        xhrMovie.setRequestHeader("Cache-Control", "no-cache");
+        xhrMovie.send(dataMovie);
     }
 
     // backToHomeHandler = () => {

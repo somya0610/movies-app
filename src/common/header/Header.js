@@ -211,15 +211,25 @@ class Header extends Component {
                             </Button>
                         </div>
                     }
-                    {this.props.showBookShowButton === "true" ?
-                        <div className="bookshow-button">
+                    {this.props.showBookShowButton === "true" && !this.state.loggedIn
+                        ? <div className="bookshow-button">
+                            <Button variant="contained" color="primary" onClick={this.openModalHandler}>
+                                Book Show
+                            </Button>
+                        </div>
+                        : ""
+                    }
+                    {/* {this.props.showBookShowButton === "true" ? */}
+                    {this.props.showBookShowButton === "true" && this.state.loggedIn
+                        ? <div className="bookshow-button">
                             {/* <Button variant="contained" color="primary" onClick={this.bookshowHandler}>Book Show</Button> */}
                             <Link to={"/bookshow/" + this.props.id}>
                                 <Button variant="contained" color="primary">
                                     Book Show
                                 </Button>
                             </Link>
-                        </div> : ""}
+                        </div> : ""
+                    }
                 </header>
                 <Modal ariaHideApp={false} isOpen={this.state.modalIsopen} contentLabel="Login" onRequestClose={this.closeModalHandler}
                     style={customStyles}>
